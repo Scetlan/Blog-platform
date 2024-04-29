@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@import './src/Components/Header/Header.module.scss';
+* {
+  margin: 0;
+  padding: 0;
+  color: #4a4a4a;
+}
+
+body {
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+
+  font:
+    12px/1.2 'Inter',
+    sans-serif;
+  background: #ebeef3;
+  color: #4a4a4a;
+}
+
+button {
+  background-color: transparent;
+}
+
+ul {
+  list-style-type: none;
+}
