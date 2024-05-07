@@ -5,7 +5,7 @@ import FooterPagination from '../FooterPagination/FooterPagination';
 
 function ListOfArticles() {
   const { articles } = useSelector(state => state.fetch);
-  console.log(articles);
+  console.log(1234);
   return (
     <main>
       <ul className={classes.article__list}>

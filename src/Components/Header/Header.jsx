@@ -1,9 +1,9 @@
 import classes from './Header.module.scss';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 function Header() {
   return (
-    <>
+    <main>
       <header className={classes.header__content}>
         <div className={classes.header__container}>
           <Link to={'/articles'} className={classes.header__title}>
@@ -23,8 +23,8 @@ function Header() {
           </ul>
         </div>
       </header>
-      {/* <Outlet /> */}
-    </>
+      <Outlet />
+    </main>
   );
 }
 
