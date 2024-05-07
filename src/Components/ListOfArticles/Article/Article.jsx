@@ -1,25 +1,34 @@
+import { Link } from 'react-router-dom';
 import classes from './Article.module.scss';
 
 function Article({ user }) {
-  const { name, date, title, tags, text } = user;
+  const { author, createdAt, title, updatedAt, body, tagList, slug } = user;
 
   return (
     <li className={classes.article__item}>
       <div className={classes.article__content}>
-        <h2 className={classes.article__title}>{title}</h2>
+        <Link to={`/articles/${slug}`} className={classes.article__title}>
+          {title}
+        </Link>
         <ul className={classes['article__list-tags']}>
-          {tags.map(tag => (
-            <li className={classes.item__tag}>{tag}</li>
-          ))}
+          {tagList.map(tag =>
+            tag !== '' ? (
+              <li key={tag} className={classes.item__tag}>
+                {tag}
+              </li>
+            ) : null
+          )}
         </ul>
-        <p className={classes['article__desc']}>{text}</p>
+        {body ? <p className={classes['article__desc']}>{body}</p> : null}
       </div>
       <div className={classes.blog__user}>
         <div className={classes.blog__name}>
-          <h2 className={classes.blog__title}>{name}</h2>
-          <p className={classes.blog__desc}>{date}</p>
+          <h2 className={classes.blog__title}>{author.username}</h2>
+          <p className={classes.blog__desc}>{createdAt}</p>
         </div>
-        <img src="./public/avatar.svg" alt="" />
+        <div className={classes.avatar}>
+          <img src={author.image} alt="" />
+        </div>
       </div>
     </li>
   );

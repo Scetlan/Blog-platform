@@ -1,13 +1,20 @@
+import { useSelector } from 'react-redux';
 import Article from './Article/Article';
 import classes from './ListOfArticles.module.scss';
+import FooterPagination from '../FooterPagination/FooterPagination';
 
-function ListOfArticles({ users }) {
+function ListOfArticles() {
+  const { articles } = useSelector(state => state.fetch);
+  console.log(articles);
   return (
-    <ul className={classes.article__list}>
-      {users.map(user => {
-        return <Article user={user} />;
-      })}
-    </ul>
+    <main>
+      <ul className={classes.article__list}>
+        {articles.map(article => {
+          return <Article key={article.author.username} user={article} />;
+        })}
+      </ul>
+      <FooterPagination />
+    </main>
   );
 }
 
