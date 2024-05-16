@@ -1,16 +1,15 @@
-import { ReactNode, useEffect } from 'react';
-import Markdown from 'marked-react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Article } from '../Article';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getArticle } from '../../store/fetchSlice';
-
 import classes from './ArticlePage.module.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import Article from '../ListOfArticles/Article/Article';
+import Markdown from 'marked-react';
+import { getArticle } from '../../Redux/reducer/fetchSlice';
 
 export const ArticlePage = () => {
-  const dispatch = useD();
-  const { article, isError, loading, login } = useAppSelector(state => state.fetch);
+  const dispatch = useDispatch();
+  const { article, isError, loading, login } = useSelector(state => state.fetch);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -21,9 +20,11 @@ export const ArticlePage = () => {
 
   return (
     article && (
-      <div className={classes.pageContainer}>
-        <Article {...article} />
-        <Markdown>{article.body}</Markdown>
+      <div className={classes['page-container']}>
+        <Article user={article} />
+        <div className={classes['article-body']}>
+          <Markdown>{article.body}</Markdown>
+        </div>
       </div>
     )
   );

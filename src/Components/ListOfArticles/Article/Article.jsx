@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import classes from './Article.module.scss';
+import BlogAuthor from './BlogAuthor/BlogAuthor';
+import { useSelector } from 'react-redux';
 
 function Article({ user }) {
   const { author, createdAt, title, updatedAt, body, tagList, slug } = user;
-
+  const { article } = useSelector(state => state.fetch);
   return (
     <li className={classes.article__item}>
       <div className={classes.article__content}>
@@ -19,17 +21,13 @@ function Article({ user }) {
             ) : null
           )}
         </ul>
-        {body ? <p className={classes['article__desc']}>{body}</p> : null}
+        {body ? (
+          <p className={article ? classes['article__desc-markdown'] : classes['article__desc']}>
+            {body}
+          </p>
+        ) : null}
       </div>
-      <div className={classes.blog__user}>
-        <div className={classes.blog__name}>
-          <h2 className={classes.blog__title}>{author.username}</h2>
-          <p className={classes.blog__desc}>{createdAt}</p>
-        </div>
-        <div className={classes.avatar}>
-          <img src={author.image} alt="" />
-        </div>
-      </div>
+      <BlogAuthor author={author} date={createdAt || updatedAt} />
     </li>
   );
 }

@@ -1,8 +1,6 @@
 .article__list {
   display: grid;
   row-gap: 26px;
-  max-width: 941px;
-
-  margin: 0 auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 941px));
   padding-top: 26px;
 }

@@ -1,0 +1,61 @@
+.article__form {
+  max-width: 938px;
+  margin-top: 34px;
+  background-color: #ffff;
+  padding: 48px 32px;
+  text-align: center;
+}
+
+.form-create {
+  text-align: left;
+}
+
+.title {
+  color: rgb(38, 38, 38);
+}
+
+.label-name {
+  color: rgb(38, 38, 38);
+  text-align: left;
+  padding-bottom: 2px;
+}
+
+.delete-button {
+  width: 118px;
+  height: 40px;
+
+  margin-left: 18px;
+
+  color: rgb(245, 34, 45);
+  border: 1px solid rgb(245, 34, 45);
+  border-radius: 4px;
+}
+
+.add__tag-button {
+  width: 136px;
+  height: 40px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+
+  color: rgb(24, 144, 255);
+  border: 1px solid rgb(24, 144, 255);
+  border-radius: 4px;
+}
+
+.send-button {
+  width: 319px;
+  height: 40px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+
+  margin-top: 21px;
+
+  color: #ffff;
+  border: none;
+  border-radius: 4px;
+  background: rgb(24, 144, 255);
+}
