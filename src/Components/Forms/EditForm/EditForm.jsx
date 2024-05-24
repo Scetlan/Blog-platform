@@ -1,18 +1,19 @@
+import classes from './EditForm.module.scss';
+import { clearError } from '../../../Redux/reducer/fetchSlice';
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import classes from './EditForm.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, editProfile } from '../../../Redux/reducer/fetchSlice';
+import { editProfile } from '../../../Redux/api/Api';
 
 const InputStyle = {
   height: 40,
   marginBottom: 10,
 };
 
-const EditForm = () => {
+function EditForm() {
   const { loading, isError, user } = useSelector(state => state.fetch);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -69,8 +70,7 @@ const EditForm = () => {
               <Input
                 {...field}
                 style={
-                  errors.username ||
-                  (isError && typeof isError === 'object' && 'username' in isError && isSubmitted)
+                  errors.username || (isError && typeof isError === 'object' && 'username' in isError && isSubmitted)
                     ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
                     : InputStyle
                 }
@@ -78,7 +78,10 @@ const EditForm = () => {
               />
               {errors.username && <span className={classes.error}>{errors.username.message}</span>}
               {isError && typeof isError === 'object' && 'username' in isError && isSubmitted && (
-                <span className={classes.error}>Username {isError.username}</span>
+                <span className={classes.error}>
+                  Username
+                  {isError.username}
+                </span>
               )}
             </>
           )}
@@ -98,8 +101,7 @@ const EditForm = () => {
               <Input
                 {...field}
                 style={
-                  errors.email ||
-                  (isError && typeof isError === 'object' && 'email' in isError && isSubmitted)
+                  errors.email || (isError && typeof isError === 'object' && 'email' in isError && isSubmitted)
                     ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
                     : InputStyle
                 }
@@ -107,7 +109,10 @@ const EditForm = () => {
               />
               {errors.email && <span className={classes.error}>{errors.email.message}</span>}
               {isError && typeof isError === 'object' && 'email' in isError && isSubmitted && (
-                <span className={classes.error}>Email {isError.email}</span>
+                <span className={classes.error}>
+                  Email
+                  {isError.email}
+                </span>
               )}
             </>
           )}
@@ -128,16 +133,10 @@ const EditForm = () => {
               <Input
                 {...field}
                 type="password"
-                style={
-                  errors.newPassword
-                    ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
-                    : InputStyle
-                }
+                style={errors.newPassword ? { ...InputStyle, borderColor: 'red', marginBottom: 0 } : InputStyle}
                 placeholder="Password"
               />
-              {errors.newPassword && (
-                <span className={classes.error}>{errors.newPassword.message}</span>
-              )}
+              {errors.newPassword && <span className={classes.error}>{errors.newPassword.message}</span>}
             </>
           )}
         />
@@ -173,11 +172,14 @@ const EditForm = () => {
           Save
         </button>
         {typeof isError === 'string' && isSubmitted && (
-          <span className={classes.error}>Username or email {isError}</span>
+          <span className={classes.error}>
+            Username or email
+            {isError}
+          </span>
         )}
       </form>
     </div>
   );
-};
+}
 
 export default EditForm;

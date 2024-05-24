@@ -1,9 +1,9 @@
+import classes from './Pagination.module.scss';
+import { setPage } from '../../Redux/reducer/fetchSlice';
 import { Pagination } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPage } from '../../Redux/reducer/fetchSlice';
-import classes from './Pagination.module.scss';
 
-const FooterPagination = () => {
+function FooterPagination() {
   const dispatch = useDispatch();
   const { currentPage, articlesCount } = useSelector(state => state.fetch);
   return (
@@ -17,6 +17,6 @@ const FooterPagination = () => {
       />
     </div>
   );
-};
+}
 
 export default FooterPagination;

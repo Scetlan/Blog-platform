@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react';
+import classes from './SignInForm.module.scss';
+import { clearError } from '../../../Redux/reducer/fetchSlice';
+import { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
-import classes from './SignInForm.module.scss';
-import { clearError, logIn } from '../../../Redux/reducer/fetchSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { logIn } from '../../../Redux/api/Api';
 
 const InputStyle = {
   height: 40,
   marginBottom: 10,
 };
 
-export const SignInForm = () => {
+export function SignInForm() {
   const { isError, loading } = useSelector(state => state.fetch);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export const SignInForm = () => {
     if (isSubmitSuccessful && !isError && !loading) {
       navigate('/');
     }
-  }, [isSubmitSuccessful, isError, loading]);
+  }, [isSubmitSuccessful, isError, loading, navigate]);
 
   useEffect(() => {
     if (isError && !isSubmitSuccessful) dispatch(clearError());
@@ -58,10 +59,10 @@ export const SignInForm = () => {
           render={({ field }) => (
             <>
               <Input
+                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...field}
                 style={
-                  errors.email ||
-                  (isError && typeof isError === 'object' && 'email' in isError && isSubmitted)
+                  errors.email || (isError && typeof isError === 'object' && 'email' in isError && isSubmitted)
                     ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
                     : InputStyle
                 }
@@ -69,7 +70,10 @@ export const SignInForm = () => {
               />
               {errors.email && <span className={classes.error}>{errors.email.message}</span>}
               {isError && typeof isError === 'object' && 'email' in isError && isSubmitted && (
-                <span className={classes.error}>Email {isError.email}</span>
+                <span className={classes.error}>
+                  Email
+                  {isError.email}
+                </span>
               )}
             </>
           )}
@@ -86,6 +90,7 @@ export const SignInForm = () => {
           render={({ field }) => (
             <>
               <Input
+                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...field}
                 type="password"
                 style={
@@ -103,20 +108,20 @@ export const SignInForm = () => {
           Login
         </button>
         {typeof isError === 'string' && isSubmitted && (
-          <span className={classes.error}>Username or email {isError}</span>
+          <span className={classes.error}>
+            Username or email
+            {isError}
+          </span>
         )}
-        <span className={classes['account']}>
-          Don't have an account?
-          <Link
-            to={'/sign-up'}
-            style={{ 'margin-left': '5px', color: '#1890FF', textDecoration: 'none' }}
-          >
+        <span className={classes.account}>
+          Don&apos;t have an account?
+          <Link to="/sign-up" style={{ 'margin-left': '5px', color: '#1890FF', textDecoration: 'none' }}>
             Sign Up
           </Link>
         </span>
       </form>
     </div>
   );
-};
+}
 
 export default SignInForm;

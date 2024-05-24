@@ -1,5 +1,5 @@
 .user {
-  max-width: 320px;
+  width: 320px;
   background-color: #fff;
   padding: 48px 32px;
 
@@ -34,4 +34,11 @@ label.name-label {
 
 form {
   text-align: center;
+}
+
+.error {
+  display: block;
+  text-align: start;
+  color: red;
+  margin-bottom: 6px;
 }

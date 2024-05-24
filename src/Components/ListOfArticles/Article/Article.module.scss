@@ -13,17 +13,27 @@
   padding-right: 20px;
 }
 
+.article__header {
+  display: flex;
+  column-gap: 13px;
+}
+
 .article__title,
-.article__title-user {
+.article__title-user,
+.article__title-articles {
+  font-size: 20px;
   font-weight: 400;
   color: rgb(24, 144, 255);
 }
 
-.article__title-user {
+.article__title-articles {
+  font-size: 20px;
 }
 
 .article__list-tags {
   display: flex;
+  flex-wrap: wrap;
+  row-gap: 8px;
   column-gap: 8px;
 
   padding-top: 4px;
@@ -58,4 +68,30 @@
   font-size: 12px;
   padding-top: 4px;
   color: rgba(0, 0, 0, 0.5);
+}
+
+.like,
+.like-active {
+  display: flex;
+  align-self: center;
+  box-sizing: border-box;
+  background-color: transparent;
+  column-gap: 3px;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border: none;
+}
+
+.like-active {
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color,
+    transform 0.2s linear;
+
+  &:hover {
+    transform: translateY(-1px) scale(1.1);
+    color: red;
+  }
 }

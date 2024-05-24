@@ -2,6 +2,7 @@
   display: flex;
   column-gap: 12px;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .blog__title {
@@ -11,6 +12,10 @@
 
 .blog__desc {
   color: rgba(0, 0, 0, 0.5);
+}
+
+.buttons-container {
+  position: relative;
 }
 
 .avatar {
@@ -24,5 +29,39 @@
     object-fit: cover;
     width: 100%;
     height: 100%;
+  }
+}
+
+.delete-button {
+  position: relative;
+  width: 78px;
+  height: 31px;
+  border: 1px solid rgb(245, 34, 45);
+  color: rgb(245, 34, 45);
+  margin-right: 12px;
+  border-radius: 5px;
+  &:hover {
+    background-color: rgb(245, 34, 45);
+    color: #fff;
+  }
+  &:focus {
+    background-color: rgb(245, 34, 45, 0.8);
+    color: #fff;
+  }
+}
+
+.edit-button {
+  width: 65px;
+  height: 31px;
+  border: 1px solid rgb(82, 196, 26);
+  color: rgb(82, 196, 26);
+  border-radius: 5px;
+  &:hover {
+    background-color: rgb(82, 196, 26);
+    color: #fff;
+  }
+  &:focus {
+    background-color: rgb(82, 196, 26, 0.8);
+    color: #fff;
   }
 }

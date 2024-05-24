@@ -1,5 +1,5 @@
 .article__form {
-  max-width: 938px;
+  width: 938px;
   margin-top: 34px;
   background-color: #ffff;
   padding: 48px 32px;
@@ -58,4 +58,11 @@
   border: none;
   border-radius: 4px;
   background: rgb(24, 144, 255);
+}
+
+.error {
+  display: block;
+  text-align: start;
+  color: red;
+  margin-bottom: 6px;
 }

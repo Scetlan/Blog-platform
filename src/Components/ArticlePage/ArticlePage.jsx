@@ -1,13 +1,14 @@
+import classes from './ArticlePage.module.scss';
+import Article from '../ListOfArticles/Article/Article';
+// import { getArticle } from '../../Redux/reducer/fetchSlice';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import classes from './ArticlePage.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import Article from '../ListOfArticles/Article/Article';
 import Markdown from 'marked-react';
-import { getArticle } from '../../Redux/reducer/fetchSlice';
+import { getArticle } from '../../Redux/api/Api';
 
-export const ArticlePage = () => {
+export default function ArticlePage() {
   const dispatch = useDispatch();
   const { article, isError, loading, login } = useSelector(state => state.fetch);
   const { id } = useParams();
@@ -16,7 +17,7 @@ export const ArticlePage = () => {
   useEffect(() => {
     if (isError) navigate('/');
     if (!article && !loading) dispatch(getArticle(id));
-  }, [id, article, isError, login]);
+  }, [id, article, isError, login, dispatch, loading, navigate]);
 
   return (
     article && (
@@ -28,4 +29,4 @@ export const ArticlePage = () => {
       </div>
     )
   );
-};
+}

@@ -1,18 +1,19 @@
+import classes from './CreatingAccountForm.module.scss';
+import { clearError } from '../../../Redux/reducer/fetchSlice';
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Checkbox, Divider, Input } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
-import classes from './CreatingAccountForm.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, registerNewUser } from '../../../Redux/reducer/fetchSlice';
+import { registerNewUser } from '../../../Redux/api/Api';
 
 const InputStyle = {
   height: 40,
   marginBottom: 10,
 };
 
-const CreatingAccountForm = () => {
+function CreatingAccountForm() {
   const { isError, loading } = useSelector(state => state.fetch);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -63,8 +64,7 @@ const CreatingAccountForm = () => {
               <Input
                 {...field}
                 style={
-                  errors.username ||
-                  (isError && typeof isError === 'object' && 'username' in isError && isSubmitted)
+                  errors.username || (isError && typeof isError === 'object' && 'username' in isError && isSubmitted)
                     ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
                     : InputStyle
                 }
@@ -72,7 +72,10 @@ const CreatingAccountForm = () => {
               />
               {errors.username && <span className={classes.error}>{errors.username.message}</span>}
               {isError && typeof isError === 'object' && 'username' in isError && isSubmitted && (
-                <span className={classes.error}>Username {isError.username}</span>
+                <span className={classes.error}>
+                  Username
+                  {isError.username}
+                </span>
               )}
             </>
           )}
@@ -93,8 +96,7 @@ const CreatingAccountForm = () => {
               <Input
                 {...field}
                 style={
-                  errors.email ||
-                  (isError && typeof isError === 'object' && 'email' in isError && isSubmitted)
+                  errors.email || (isError && typeof isError === 'object' && 'email' in isError && isSubmitted)
                     ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
                     : InputStyle
                 }
@@ -102,7 +104,10 @@ const CreatingAccountForm = () => {
               />
               {errors.email && <span className={classes.error}>{errors.email.message}</span>}
               {isError && typeof isError === 'object' && 'email' in isError && isSubmitted && (
-                <span className={classes.error}>Email {isError.email}</span>
+                <span className={classes.error}>
+                  Email
+                  {isError.email}
+                </span>
               )}
             </>
           )}
@@ -123,11 +128,7 @@ const CreatingAccountForm = () => {
               <Input
                 {...field}
                 type="password"
-                style={
-                  errors.password
-                    ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
-                    : InputStyle
-                }
+                style={errors.password ? { ...InputStyle, borderColor: 'red', marginBottom: 0 } : InputStyle}
                 placeholder="Password"
               />
               {errors.password && <span className={classes.error}>{errors.password.message}</span>}
@@ -149,16 +150,10 @@ const CreatingAccountForm = () => {
               <Input
                 {...field}
                 type="password"
-                style={
-                  errors.repeatPassword
-                    ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
-                    : InputStyle
-                }
+                style={errors.repeatPassword ? { ...InputStyle, borderColor: 'red', marginBottom: 0 } : InputStyle}
                 placeholder="Repeat Password"
               />
-              {errors.repeatPassword && (
-                <span className={classes.error}>{errors.repeatPassword.message}</span>
-              )}
+              {errors.repeatPassword && <span className={classes.error}>{errors.repeatPassword.message}</span>}
             </>
           )}
         />
@@ -181,13 +176,13 @@ const CreatingAccountForm = () => {
                     verticalAlign: 'top',
                     marginBottom: errors.checkbox ? 0 : 20,
                     color: '#595959',
+                    display: 'flex',
+                    textAlign: 'start',
                   }}
                 >
                   I agree to the processing of my personal information
                 </Checkbox>
-                {errors.checkbox && (
-                  <span className={classes.error}>{errors.checkbox.message}</span>
-                )}
+                {errors.checkbox && <span className={classes.error}>{errors.checkbox.message}</span>}
               </>
             )}
           />
@@ -196,17 +191,20 @@ const CreatingAccountForm = () => {
           Create
         </button>
         {typeof isError === 'string' && isSubmitted && (
-          <span className={classes.error}>Username or email {isError}</span>
+          <span className={classes.error}>
+            Username or email
+            {isError}
+          </span>
         )}
         <span className={classes.account__access}>
           Already have an account?{' '}
-          <Link to={'/sign-in'} style={{ color: '#1890FF', textDecoration: 'none' }}>
+          <Link to="/sign-in" style={{ color: '#1890FF', textDecoration: 'none' }}>
             Sign In
           </Link>
         </span>
       </form>
     </div>
   );
-};
+}
 
 export default CreatingAccountForm;

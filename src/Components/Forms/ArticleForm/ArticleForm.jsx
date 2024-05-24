@@ -1,19 +1,19 @@
+import classes from './ArticleForm.module.scss';
 import React, { useEffect } from 'react';
 import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import classes from './ArticleForm.module.scss';
-import { createNewArticle, editArticle } from '../../../Redux/reducer/fetchSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import uniqid from 'uniqid';
+import { createNewArticle, editArticle } from '../../../Redux/api/Api';
 
 const InputStyle = {
   height: 40,
   marginBottom: 20,
 };
 
-const ArticleForm = ({ isEdit }) => {
+function ArticleForm({ isEdit }) {
   const { TextArea } = Input;
   const { isError, article, loading } = useSelector(state => state.fetch);
   const {
@@ -49,7 +49,7 @@ const ArticleForm = ({ isEdit }) => {
     }
   }, [isSubmitSuccessful, article]);
   return (
-    <div className={classes['article__form']}>
+    <div className={classes.article__form}>
       <h2 className={classes.title}>{isEdit ? 'Edit article' : 'Create new article'}</h2>
       <form onSubmit={handleSubmit(submit)} className={classes['form-create']}>
         <label htmlFor="title" className={classes['label-name']}>
@@ -66,9 +66,7 @@ const ArticleForm = ({ isEdit }) => {
             <>
               <Input
                 {...field}
-                style={
-                  errors.title ? { ...InputStyle, borderColor: 'red', marginBottom: 0 } : InputStyle
-                }
+                style={errors.title ? { ...InputStyle, borderColor: 'red', marginBottom: 0 } : InputStyle}
                 placeholder="Title"
               />
               {errors.title && <span className={classes.error}>{errors.title.message}</span>}
@@ -89,16 +87,10 @@ const ArticleForm = ({ isEdit }) => {
             <>
               <Input
                 {...field}
-                style={
-                  errors.description
-                    ? { ...InputStyle, borderColor: 'red', marginBottom: 0 }
-                    : InputStyle
-                }
+                style={errors.description ? { ...InputStyle, borderColor: 'red', marginBottom: 0 } : InputStyle}
                 placeholder="Description"
               />
-              {errors.description && (
-                <span className={classes.error}>{errors.description.message}</span>
-              )}
+              {errors.description && <span className={classes.error}>{errors.description.message}</span>}
             </>
           )}
         />
@@ -132,42 +124,32 @@ const ArticleForm = ({ isEdit }) => {
             </>
           )}
         />
-        <label
-          htmlFor="tags"
-          className={classes['label-name']}
-          style={{ display: 'block', marginBottom: 3 }}
-        >
+        <label htmlFor="tags" className={classes['label-name']} style={{ display: 'block', marginBottom: 3 }}>
           Tags
         </label>
         <ul className={classes.tagList}>
-          {fields.map((_, index) => {
-            return (
-              <li key={uniqid.time('tag-')} className={classes.tag}>
-                <Controller
-                  name={`tags.${index}.name`}
-                  control={control}
-                  render={({ field }) => (
-                    <>
-                      <Input
-                        {...field}
-                        style={{ ...InputStyle, width: 300, marginBottom: 5 }}
-                        placeholder="Tags"
-                      />
-                      {errors.tags && <span className={classes.error}>{errors.tags.message}</span>}
-                    </>
-                  )}
-                />
-                <button
-                  type="button"
-                  aria-label="delete tag"
-                  className={classes['delete-button']}
-                  onClick={() => remove(index)}
-                >
-                  Delete
-                </button>
-              </li>
-            );
-          })}
+          {fields.map((_, index) => (
+            <li key={uniqid.time('tag-')} className={classes.tag}>
+              <Controller
+                name={`tags.${index}.name`}
+                control={control}
+                render={({ field }) => (
+                  <>
+                    <Input {...field} style={{ ...InputStyle, width: 300, marginBottom: 5 }} placeholder="Tags" />
+                    {errors.tags && <span className={classes.error}>{errors.tags.message}</span>}
+                  </>
+                )}
+              />
+              <button
+                type="button"
+                aria-label="delete tag"
+                className={classes['delete-button']}
+                onClick={() => remove(index)}
+              >
+                Delete
+              </button>
+            </li>
+          ))}
           <button
             type="button"
             aria-label="add tag"
@@ -184,6 +166,6 @@ const ArticleForm = ({ isEdit }) => {
       </form>
     </div>
   );
-};
+}
 
 export default ArticleForm;
