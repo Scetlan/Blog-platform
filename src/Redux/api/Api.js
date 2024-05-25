@@ -1,23 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchArticles = createAsyncThunk('fetch/fetchArticles', async (page, { rejectWithValue }) => {
-  let skipArticles;
-  if (page === 1) skipArticles = 0;
-  else skipArticles = (page - 1) * 5;
-  let options;
-  if (window.localStorage.getItem('token')) {
-    options = {
+  const skipArticles = page === 1 ? 0 : (page - 1) * 5;
+  const token = window.localStorage.getItem('token');
+  const options = token
+    ? {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Token ${window.localStorage.getItem('token')}`,
+        Authorization: `Bearer ${token}`,
       },
-    };
+    }
+    : {};
+
+  try {
+    const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${skipArticles}`, options);
+    if (!response.ok) return rejectWithValue('Server Error!');
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return rejectWithValue(error.message);
   }
-  const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${skipArticles}`, options);
-  if (!response.ok) return rejectWithValue('Server Error!');
-  const data = await response.json();
-  return data;
 });
 
 export const getArticle = createAsyncThunk('fetch/getArticle', async (slug, { rejectWithValue }) => {
