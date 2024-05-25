@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+const url = 'https://blog.kata.academy/api/';
+
 export const fetchArticles = createAsyncThunk('fetch/fetchArticles', async (page, { rejectWithValue }) => {
   const skipArticles = page === 1 ? 0 : (page - 1) * 5;
   const token = window.localStorage.getItem('token');
@@ -14,7 +16,7 @@ export const fetchArticles = createAsyncThunk('fetch/fetchArticles', async (page
     : {};
 
   try {
-    const response = await fetch(`https://blog.kata.academy/api/articles?limit=5&offset=${skipArticles}`, options);
+    const response = await fetch(`${url}articles?limit=5&offset=${skipArticles}`, options);
     if (!response.ok) return rejectWithValue('Server Error!');
     const data = await response.json();
     return data;
@@ -35,7 +37,7 @@ export const getArticle = createAsyncThunk('fetch/getArticle', async (slug, { re
     };
   }
 
-  const response = await fetch(`https://blog.kata.academy/api/articles/${slug}`, options);
+  const response = await fetch(`${url}articles/${slug}`, options);
   if (!response.ok) return rejectWithValue('Server Error!');
   const data = await response.json();
   return data.article;
@@ -43,7 +45,7 @@ export const getArticle = createAsyncThunk('fetch/getArticle', async (slug, { re
 
 export const registerNewUser = createAsyncThunk('fetch/registerNewUser', async ({ username, email, password }, { rejectWithValue }) => {
   const user = { username, email, password };
-  const response = await fetch('https://blog.kata.academy/api/users', {
+  const response = await fetch(`${url}users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -63,7 +65,7 @@ export const registerNewUser = createAsyncThunk('fetch/registerNewUser', async (
 
 export const logIn = createAsyncThunk('fetch/logIn', async ({ email, password }, { rejectWithValue }) => {
   const user = { email, password };
-  const response = await fetch('https://blog.kata.academy/api/users/login', {
+  const response = await fetch(`${url}users/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -84,7 +86,7 @@ export const editProfile = createAsyncThunk('fetch/editProfile', async ({
   const user = {
     username, email, password, image,
   };
-  const response = await fetch('https://blog.kata.academy/api/user', {
+  const response = await fetch(`${url}user`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -108,7 +110,7 @@ export const createNewArticle = createAsyncThunk('fetch/createNewArticle', async
   const article = {
     title, description, body, tagList,
   };
-  const response = await fetch('https://blog.kata.academy/api/articles', {
+  const response = await fetch(`${url}articles`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -131,7 +133,7 @@ export const editArticle = createAsyncThunk('fetch/editArticle', async ({ newArt
     body: newArticle.body,
     tagList: newArticle.tagList,
   };
-  const response = await fetch(`https://blog.kata.academy/api/articles/${slug}`, {
+  const response = await fetch(`${url}articles/${slug}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -148,7 +150,7 @@ export const editArticle = createAsyncThunk('fetch/editArticle', async ({ newArt
 });
 
 export const deleteArticle = createAsyncThunk('fetch/deleteArticle', async (slug, { rejectWithValue }) => {
-  const response = await fetch(`https://blog.kata.academy/api/articles/${slug}`, {
+  const response = await fetch(`${url}articles/${slug}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -164,7 +166,7 @@ export const deleteArticle = createAsyncThunk('fetch/deleteArticle', async (slug
 });
 
 export const favoritedArticle = createAsyncThunk('fetch/favoritedArticle', async ({ slug, favorited }, { rejectWithValue }) => {
-  const response = await fetch(`https://blog.kata.academy/api/articles/${slug}/favorite`, {
+  const response = await fetch(`${url}articles/${slug}/favorite`, {
     method: favorited ? 'DELETE' : 'POST',
     headers: {
       'Content-Type': 'application/json',
