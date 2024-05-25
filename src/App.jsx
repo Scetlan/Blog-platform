@@ -10,11 +10,21 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import ArticlePage from './Components/ArticlePage/ArticlePage';
-import { fetchArticles } from './Redux/api/Api';
+import { fetchArticles, logIn } from './Redux/api/Api';
 
 function App() {
   const dispatch = useDispatch();
   const { currentPage, loading, article, articles } = useSelector(state => state.fetch);
+
+  useEffect(() => {
+    if (window.localStorage.getItem('token')) {
+      const user = {
+        email: window.localStorage.getItem('email') || '',
+        password: window.localStorage.getItem('password') || '',
+      };
+      dispatch(logIn(user));
+    }
+  }, []);
 
   useEffect(() => {
     if (!article && articles.length === 0 && !loading) {
