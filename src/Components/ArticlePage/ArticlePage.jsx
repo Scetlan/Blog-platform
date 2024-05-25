@@ -17,7 +17,7 @@ export default function ArticlePage() {
   useEffect(() => {
     if (isError) navigate('/');
     if (!article && !loading) dispatch(getArticle(id));
-  }, [id, article, isError, login, dispatch, loading, navigate]);
+  }, [id, article, isError, login]);
 
   return (
     article && (

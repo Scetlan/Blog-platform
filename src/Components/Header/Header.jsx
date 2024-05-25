@@ -9,12 +9,11 @@ function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // console.log(user);
   return (
     <>
       <header className={classes.header__content}>
         <div className={classes.header__container}>
-          <Link to="/articles" className={classes.header__title}>
+          <Link to="articles" className={classes.header__title}>
             Realworld Blog
           </Link>
           <ul className={user ? classes['header__list-btn-try'] : classes['header__list-btn']}>
