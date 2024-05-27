@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Markdown from 'marked-react';
 import { getArticle } from '../../Redux/api/Api';
 
-export default function ArticlePage() {
+export default function ArticlePage({ article }) {
   const dispatch = useDispatch();
-  const { article, isError, loading, login } = useSelector(state => state.fetch);
+  const { isError, loading, login } = useSelector(state => state.fetch);
   const { id } = useParams();
   const navigate = useNavigate();
 
