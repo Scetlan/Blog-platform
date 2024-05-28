@@ -16,8 +16,6 @@ function App() {
   const dispatch = useDispatch();
   const { currentPage, loading, article, articles } = useSelector(state => state.fetch);
 
-  console.log(article);
-
   useEffect(() => {
     if (window.localStorage.getItem('token')) {
       const user = {
@@ -44,7 +42,13 @@ function App() {
         />
         <Route
           path="articles/:id"
-          element={loading ? <Spin size="large" className={classes['spin-list']} /> : <ArticlePage article={article} />}
+          element={
+            loading && article === null ? (
+              <Spin size="large" className={classes['spin-list']} />
+            ) : (
+              <ArticlePage article={article} />
+            )
+          }
         />
         <Route path="articles/:id/edit" element={<ArticleForm isEdit />} />
         <Route path="sign-up" element={<CreatingAccountForm />} />

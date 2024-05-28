@@ -14,6 +14,8 @@ export default function ArticlePage({ article }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  console.log(article);
+
   useEffect(() => {
     if (isError) navigate('/');
     if (!article && !loading) dispatch(getArticle(id));
