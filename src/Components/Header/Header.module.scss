@@ -55,6 +55,10 @@
 }
 
 .create-article-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 112px;
   height: 31px;
   font-size: 14px;

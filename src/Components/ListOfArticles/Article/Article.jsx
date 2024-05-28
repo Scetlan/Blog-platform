@@ -19,7 +19,7 @@ function Article(props) {
           </Link>
           <button
             type="button"
-            aria-label="button likes"
+            aria-label="button li kes"
             className={props.user ? classes['like-active'] : classes.like}
             onClick={() => {
               dispatch(favoritedArticle({ slug, favorited }));

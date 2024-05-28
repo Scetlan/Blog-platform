@@ -8,7 +8,7 @@ import ArticleForm from './Components/Forms/ArticleForm/ArticleForm';
 import { Spin } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import ArticlePage from './Components/ArticlePage/ArticlePage';
 import { fetchArticles, logIn } from './Redux/api/Api';
 
@@ -30,25 +30,16 @@ function App() {
     if (!article && articles.length === 0 && !loading) {
       dispatch(fetchArticles(currentPage));
     }
-  }, [currentPage, article, loading]);
+  }, [currentPage, article, loading, articles]);
 
   return (
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={loading ? <Spin size="large" className={classes['spin-list']} /> : <ListOfArticles />} />
-        <Route
-          path="articles"
-          element={loading ? <Spin size="large" className={classes['spin-list']} /> : <ListOfArticles />}
-        />
+        <Route path="articles" element={<Navigate to={'/'} replace />} />
         <Route
           path="articles/:id"
-          element={
-            loading && article === null ? (
-              <Spin size="large" className={classes['spin-list']} />
-            ) : (
-              <ArticlePage article={article} />
-            )
-          }
+          element={loading ? <Spin size="large" className={classes['spin-list']} /> : <ArticlePage article={article} />}
         />
         <Route path="articles/:id/edit" element={<ArticleForm isEdit />} />
         <Route path="sign-up" element={<CreatingAccountForm />} />

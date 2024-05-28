@@ -20,10 +20,8 @@ function Header() {
             {user ? (
               <>
                 <li className={classes['header__item-btn']}>
-                  <Link to="/new-article">
-                    <button aria-label="create new article" className={classes['create-article-btn']}>
-                      Create article
-                    </button>
+                  <Link to="/new-article" aria-label="create new article" className={classes['create-article-btn']}>
+                    Create article
                   </Link>
                 </li>
                 <li className={classNames(classes['header__item-btn'])}>
